@@ -318,10 +318,22 @@
 
         tag.classList.add('is-active');
         var skill = tag.dataset.skill;
+        var firstMatch = null;
         skillEntries.forEach(function (entry) {
           var entrySkills = entry.dataset.skills.split(' ');
-          if (entrySkills.indexOf(skill) !== -1) entry.classList.add('is-linked');
+          if (entrySkills.indexOf(skill) !== -1) {
+            entry.classList.add('is-linked');
+            if (!firstMatch) firstMatch = entry;
+          }
         });
+
+        /* The highlight itself is a subtle border/tint on the matched
+           entry, which can easily sit off-screen in the Experience
+           section below. Without scrolling to it, clicking a skill can
+           look like it did nothing at all. */
+        if (firstMatch) {
+          firstMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
       });
     });
   }

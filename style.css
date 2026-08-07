@@ -713,14 +713,22 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 .entry {
   padding: 48px 0;
   border-bottom: 1px solid color-mix(in srgb, var(--ink) 16%, transparent);
-  border-left: 3px solid transparent;
+  border-left: 4px solid transparent;
   transition: border-left-color 0.3s ease, background-color 0.3s ease, padding-left 0.3s ease;
 }
 .entry:last-child { border-bottom: none; }
 .entry.is-linked {
   border-left-color: var(--accent);
-  background-color: rgba(27,75,115,0.05);
-  padding-left: 24px;
+  background-color: color-mix(in srgb, var(--accent) 8%, transparent);
+  padding-left: 28px;
+  animation: entry-flash 0.9s ease-out;
+}
+@keyframes entry-flash {
+  0% { background-color: color-mix(in srgb, var(--accent) 22%, transparent); }
+  100% { background-color: color-mix(in srgb, var(--accent) 8%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .entry.is-linked { animation: none; }
 }
 .entry-head { margin-bottom: 28px; }
 .entry-title {
